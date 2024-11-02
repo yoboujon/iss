@@ -16,7 +16,45 @@ This could help countries that face unprecedented natural disasters cutting off 
 
 ## Modeling the system
 
+Using the following data sheets:
+- [BQ25504](https://www.ti.com/lit/ds/symlink/bq25504.pdf) - Ultra Low-Power Boost Converter
+- [TPS6303x](https://www.ti.com/lit/ds/symlink/tps63030.pdf) - Single Inductor Buck-Boost converter
+- [SML-D12x1](https://www.tme.eu/Document/932347758f1894d9ef5e9a8053d7c609/SML-D12Y1WT86.pdf) - CMS Led 
+
 ### Led power
+
+First, we need to specify how much DC power is required by the LED in its nominal use case. In the led's data sheet we can see in **Figure 3** the luminous intensity depending on the forwarded current as well as the voltage depending on the current in **Figure 1**.
+
+![fig1](../img/energy_fig_1.png)
+*Figure 1: Forward Current - Forward Voltage*
+
+![fig3](../img/energy_fig_3.png)
+*Figure 3: Luminous Intensity - Forward Current*
+
+|Luminous intensity|Current|Power|
+|:--|---|---|
+|25%|5 mA|$5\times{10^{-3}}\times{1.9}=9.5mW$|
+|50%|10 mA|$10\times{10^{-3}}\times{2}=20mW$|
+|100%|20 mA|$5\times{10^{-3}}\times{2.2}=44mW$|
+
+To make this led turn on for over a second it means that we require at least 44 mJ for 100% of its intensity, 20 mJ for 50% and 9.5 mJ for 25%. We are around the same unit in either of these configuration. Let's take for example the [*STM32C011x4/x6*](https://www.st.com/en/microcontrollers-microprocessors/stm32c011j4.html?icmp=tt40742_gl_lnkon_sep2024#sample-buy) which is a typical $\mu C$ used in many low power scenarios: let's take the run, sleep, stop and standby modes.
+
+|Mode (Max)|Current consumption|Power (VDD = $3V$)|
+|:--|--:|--:|
+|Run mode|3.90 $mA$ *@ $48 MHz$*|11.7 $mW$|
+|Sleep mode|1.50 $mA$ *@ $48 MHz$*|4.5 $mW$|
+|Standby mode|8.2 $\mu A$|24.6 $\mu W$|
+|Shutdown mode|72 $nA$|216 $nA$|
+
+As we can see, even at 50% of its luminescence, the led's consumption is greater than the run mode of the $\mu C$. This shows that our test can even be used in more complex systems with multiple active components. However, we are going to focus on the threshold where the led starts working. It will be at a lower power, but it is still close to the use of some $\mu C$ that runs at lower frequencies.
+
+The minimum intensity the Led can deliver cannot be read directly from the data sheet. It is not written anywhere. The *Figure 3*, showed earlier, has the lowest intensity around 5%: Because we cannot be sure if lower luminous intensity can work, this value will be used for our theory.
+
+ |Luminous intensity|Current|Power|
+|:--|---|---|
+|5% (Theoretical min.)|1 mA|$1\times{10^{-3}}\times{1.75}=1.75mW$|
+
+This is the minimal power we must provide to the diode to work. This value will be used for the rest of the document. This is close to the use of some $\mu C$ under really low-power circumstances.
 
 ### Capacitors and their impact on the system
 
