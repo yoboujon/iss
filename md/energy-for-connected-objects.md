@@ -41,8 +41,8 @@ To make this led turn on for over a second it means that we require at least 44 
 
 |Mode (Max)|Current consumption|Power (VDD = $3V$)|
 |:--|--:|--:|
-|Run mode|3.90 $mA$ *@ $48 MHz$*|11.7 $mW$|
-|Sleep mode|1.50 $mA$ *@ $48 MHz$*|4.5 $mW$|
+|Run mode|3.90 $mA$ *@ 48 MHz*|11.7 $mW$|
+|Sleep mode|1.50 $mA$ *@ 48 MHz*|4.5 $mW$|
 |Standby mode|8.2 $\mu A$|24.6 $\mu W$|
 |Shutdown mode|72 $nA$|216 $nA$|
 
@@ -57,6 +57,30 @@ The minimum intensity the Led can deliver cannot be read directly from the data 
 This is the minimal power we must provide to the diode to work. This value will be used for the rest of the document. This is close to the use of some $\mu C$ under really low-power circumstances.
 
 ### Capacitors and their impact on the system
+
+After working on the feasibility of the system in terms of power, we then need to focus on how to store the energy we send to the system. Ideally we would like to store enough energy each time we send power wirelessly. Because the system can be a little under-powered, we can use an energy buffer system to power properly the LED.
+
+We would like to first use a simple Power Management Unit, combined with a DC-DC Buck-Boost converter. A Super-capacitor will be used as the "battery" to store enough energy for the led to work. Unfortunately, this power-management system uses power too to be triggered. We then need to size the capacitance.
+
+![card_schema](../img/energy_card_schema.png)
+
+From the *BQ25504* and *TPS6303x* documentation we can see that both needs 16.62 $\mu W$ during cold start. We can then size the system with the intensity of the Led we want to provide *(either 44 mW, 20 mW or 9.5mW)*. There is a set of capacitors we can use for this use case which is the following:
+
+|Capacitance|Loss|
+|--:|--:|
+|100 $\mu F$|26.25 $nW$|
+|220 $\mu F$|26.25 $nW$|
+|1.5 $mF$|413 $\mu W$|
+|2.2 $mF$|606 $\mu W$|
+|6.8 $mF$|52.5 $\mu W$|
+|10 $mF$|289 $\mu W$|
+|22 $mF$|26.25 $\mu W$|
+
+With the help of the following formula (Energy from the given capacitance and its max voltage and min voltage): 
+
+$E=\frac{1}{2}\times{C}({V_{max}}^{2}-{V_{min}}^{2})$
+
+We
 
 ### Choosing the right frequency
 
