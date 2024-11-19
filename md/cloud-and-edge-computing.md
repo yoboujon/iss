@@ -1,1 +1,9 @@
-# Cloud and Edge Computing 
+# Cloud and Edge Computing
+
+## Course outline
+
+
+
+## Technical aspects
+### Concepts
+
