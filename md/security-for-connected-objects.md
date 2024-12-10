@@ -69,3 +69,11 @@ Soit les domaines suivants :
 - $a=[-\infty;+\infty]$ et $b=[-\infty;+\infty]$
 - **if:** $a=[6;+\infty]$ et $b=[-\infty;+\infty]$
 - **else:** $a=[-\infty;+\infty]$ et $b=[6;+\infty]$
+
+# Clause de Horn
+
+m0 ==> m1
+
+(m1 est implicite -> il faut avoir reçu m1 pour envoyer m2).
+
+m0 & m2 ==> m3
