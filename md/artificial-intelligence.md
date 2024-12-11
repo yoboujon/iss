@@ -5,6 +5,9 @@
     - **Reliability**: How much trust in our system do we need ?
     - **Privacy**: Is data sensitive ?
 
+Quantitative: c'est les chiffres, Qualitatif c'est les labels.
+Superviser c'est labeliser. **MNIST**: le `Hello, world!` du ML. 
+
 ## Qualitative Features
 On cherche une corrélation entre deux attributs qui sont différents en colonne et en ligne notamment.
 Example avec une population aux cheveux d'une couleur et yeux d'une autre qui nous permet d'avoir un profil moyen et d'observer une corrélation entre les deux.
@@ -28,3 +31,21 @@ On observe donc que plus les données ainsi que le bruit sont élevées, plus il
 
 ### Feature selection
 Parfois certaines donnés ne servent pas. Il faut faire attention et choisir quelles données peuvent être corrélés ou non. 
+
+> Theorème de continuation universel
+
+## Reduction de dimension
+
+- Théorie probabiliste
+- Réseaux de neurones
+- Vecteurs propres
+
+La reduction de dimension permet d'observer plus efficacement des résultats, des groupes avec trop de dimension est absolument impossible à visualiser ou trier. Il est possible de décomposer comme une analyse de Fourier des dataset: il est possible d'extraire du sens dans des données qui semblent très différente.
+
+Il existe aussi la **DCT**: Transformation Cosinus Discret, on réaliser une FFT sur un plus grand échantillon: le `.jpg` utilise cette transformation, on perd peu d'information notamment le bruit. **Transformation Gabor** est utilisé pour la musique: elle garde le temporel. **Transformation Wavelet**: elle permet de récupérer des signaux très spécifiques, appelés *wavelets*.
+
+## Faire du ML avec des données temporelles
+
+**k-Nearest Neighbors (k-NN)**: On classifie chaque point et on trouve une corrélation entre eux: les cas plus près. Le nouveau point est donc déterminé à partir de cela. On détermine cela à partir de la distance euclidienne entre chaque point dans le dataset.
+
+Dans le temporel, c'est une suite de valeur qui peut être défini par label, donc $N$ vecteurs = un individu/un sample.
