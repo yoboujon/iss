@@ -77,3 +77,34 @@ m0 ==> m1
 (m1 est implicite -> il faut avoir reçu m1 pour envoyer m2).
 
 m0 & m2 ==> m3
+
+# Retro-engineering
+
+## Analyseur de paquets
+On observe le comportement d'un client et d'un serveur et on reconstruit cela avec des expressions régulières (regex). Pour se faire on peut prendre une suite de lettres:
+```
+aabbaac
+abbaaaa
+ababaac
+aababaaa
+```
+On pourrait faire simplement `*` ou encore `a*`. Il est possible de faire autant de combinaison possible pour tester si le protocol se rapproche plus ou moins de son domaine $B$. Il faut mieux être dans un domaine $A$, plus grand de $B$ au début et observer les différence avec un domaine plus petit $C$ qui est entièrement contenu dans $B$.
+
+## Processeur
+Voici les éléments présents dans un processeurs:
+- ALU (Arithmetic Logic Unit)
+- Pins/GPIO
+- BR (Banc de Registre)
+- MPU (Memory Protection Unit)
+- Memory
+- Scoreboard
+- Cache
+- MMU (Memory Management Unit)
+- FPU (Floating Process Unit)
+- Pipeline
+- ACC Crypto
+
+Il existe des registres comme `SP` (stack pointer), `PC`, `CSR` ou encore `R0` à `RX`. Cependant, ces registres n'existent plus réellement, les processeurs sont bien plus complexes maintenant et possèdent bien plus que 16 registres. Il existe maintenant un module de **Register Allocation & Renaming** et chaque registre est donc dynamique.
+
+## Tomasulo Algorithm
+https://www.youtube.com/watch?v=jyjE6NHtkiA
