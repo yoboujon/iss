@@ -49,3 +49,13 @@ Il existe aussi la **DCT**: Transformation Cosinus Discret, on réaliser une FFT
 **k-Nearest Neighbors (k-NN)**: On classifie chaque point et on trouve une corrélation entre eux: les cas plus près. Le nouveau point est donc déterminé à partir de cela. On détermine cela à partir de la distance euclidienne entre chaque point dans le dataset.
 
 Dans le temporel, c'est une suite de valeur qui peut être défini par label, donc $N$ vecteurs = un individu/un sample.
+
+## Convolutional Neural Networks
+La taille du réseau de neuronnes ne dépend pas sde la taille de l'image, mais plus de la taille du filtre. Une image avec 3 dimensions: RGB par exemple. On utilise plutôt des GPU pour les CNN, car elle permettent des tâches parallèles, notamment des filtres de convolution sur une même plage. Cependant, la GPU est meilleure pour le temps de calculation, pas le chargement en mémoire -> Ce n'est pas adapté pour le Machine Learning.
+
+On peut ajouter du padding autour des bordures pour ne pas perdre de l'information, en général c'est $2p$.Le Max-pooling prend les valeures maximales sur des zones de $2\times{2}$, cela permet de réduire la taille de l'image. **L'average pooling** permet lui de supprimer du bruit en moyennant les sous-patches *(zone de $2\times{2}$)*. Batch normalization est une autre méthode de 2015 elle permet de normaliser entre chaques couches du réseau, cela induit:
+- Même echelle entre gradiants
+- Convergeance plus rapide
+- Moins d'erreurs de valeurs
+
+Le réseau convolutionnel est le seul qui permet de déterminer de manière correcte la classification d'image.
