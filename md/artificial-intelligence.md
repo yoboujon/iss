@@ -59,3 +59,42 @@ On peut ajouter du padding autour des bordures pour ne pas perdre de l'informati
 - Moins d'erreurs de valeurs
 
 Le réseau convolutionnel est le seul qui permet de déterminer de manière correcte la classification d'image.
+
+## Embedded systems
+
+Les systèmes embarqués ont une mémoire limitée (Ko), une transmission plutôt lente.
+Complexité d'un CNN:
+- Nombre d'images
+- Taille des images
+- Nombre de poids
+- Taille/Nombre de filtres
+- Architecture réseau
+Pour compresser certains modèles, utiliser une dimension d'image plus faible, baisser le nombre de paramètre, le nombre de bits par valeurs.
+
+Chaque étape avec une approche de validation:
+- **Data processing**
+- **Hyperparamètres**: Structure, Algorithm, Stop
+- **Transfer learning**: charger les poids et la structure, fine-tuning...
+
+Certains mechanismes peuvent être utilisés aussi pour rendre le modèle plus léger:
+- Knowledge Distillation
+- Batch Normalization Fusion
+- Compiler/Hardware-aware optimizations
+- *Efficient Architectures (performance vs. resources)*
+- *Model pruning*
+- *Quantization* (TFLite)
+
+Nous allons nous intéresser aux 3 derniers, plus précisement le **MobileNet**, **EfficientNet** pour *Efficient Architecture*. 
+
+[Improved convolution layers](https://www.youtube.com/watch?v=vVaRhZXovbw)
+
+On pourrait penser que plus on a de couche, plus le modèle est précis, mais en réalité, parfois certaines données sont écrasées à cause de la manière dont certaines couches veulent tendre vers un résultat. Pour régler ce problème on met des *"bottleneck block"*: ces blocs réduisent le nombre de paramètres mais en augmentant le nombre de blocs.
+
+### EfficientNet
+Le but est de faire un équilibre entre width/depth/resolution avec une constante donnée. Avec cela nous pourrons trouver des valeurs de $\alpha$, $\beta$ et $\gamma$ dans une equation du 3ème degré. Fixer $\Phi$ avec un GridSearch permet de trouver plus ou moins vite leurs valeurs.
+
+### Network Pruning
+Après l'entrainement, les neuronnes sont tous connectés, de la même manière qu'un enfant, mais la plupart de ces connections sont assez inutiles, l'utilité du Pruning + FineTuning permet de supprimer les neurones inutiles notamment ceux qui bruitent le résultat. Il est possible de diminuer de presque 90% tout en gardant une précision similaire. Le choix des neurones supprimées correspond à des neurones non-actifs ou proches de 0.
+
+### Quantization
+Passer des flottants aux entiers permet d'optimiser énormement le nombre de bits utilisés. par exemple en diminuant la résolution ou encore le nombre de bit par pixel pour les couleurs.
